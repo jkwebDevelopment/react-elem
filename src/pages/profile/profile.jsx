@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 
 import Header from '@/components/header/header';
 import Footer from '@/components/footer/footer';
+import AlertTip from '@/components/alert_tip/alert_tip';
 
 import './profile.scss';
 
@@ -168,6 +169,7 @@ class Profile extends Component {
                     </section>
                     <Footer key='s3'/>
                 </QueueAnim>
+                {this.state.hasAlert && <AlertTip logout={()=> {return false}} closeTip={this.handleClick} alertText={this.state.alertText}></AlertTip>}
             </div>
         )
     }
