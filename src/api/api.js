@@ -67,6 +67,76 @@ class API extends Server {
           throw err;
       }
   }
+  /**
+   *  用途：上传图片
+   *  @url https://elm.cangdu.org/v1/addimg/shop
+   *  返回status为1表示成功
+   *  @method post
+   *  @return {promise}
+   */
+  async uploadImg(data) {
+      try {
+        let result = await this.axios('post', '//elm.cangdu.org/v1/addimg/shop', data);
+        if(result && result.status === 1) {
+            return result;
+        } else {
+            let err = {
+                tip: '上传图片失败',
+                response: result,
+                url: '//elm.cangdu.org/v1/addimg/shop'
+            }
+            return err;
+        }
+      } catch (err) {
+          throw err;
+      }
+  }
+  /**
+   *  用途：获取用户地址列表
+   *  @url https://elm.cangdu.org/v1/addimg/shop
+   *  返回status为1表示成功
+   *  @method get
+   */
+  async getAddress(id) {
+      try {
+          let result = await this.axios('get', '/v1/users/'+id+'/addresses');
+          if(result) {
+              return result;
+          } else {
+              let err = {
+                  tip: "获取地址失败",
+                  response: result,
+                  url: "//elm.cangdu.org/v1/carts/addresses"
+              }
+              return err;
+          }
+      } catch(err) {
+          throw err;
+      }
+  }
+  /**
+   *
+   *  用途: 搜索符合条件的地址
+   * @param {*} data
+   * @memberof API
+   */
+  async searchPois(data) {
+      try {
+        let result = await this.axios('get', '/v1/pois/'+ getUrlConcat(data));
+        if(result) {
+            return result;
+        } else {
+            let err = {
+                tip: '搜索地点失败',
+                response: result,
+                url: '//elm.cangdu.org/v1/carts/addresses'
+            }
+            return err;
+        }
+      }catch(err) {
+        throw err;
+      }
+  }
 }
 
 export default new API();
