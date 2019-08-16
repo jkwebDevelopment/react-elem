@@ -39,7 +39,7 @@ class API extends Server {
                     tip: '获取验证码失败',
                     response: result,
                 }
-                return err;
+                throw err;
             }
         }catch(ex) {
             throw ex;
@@ -61,7 +61,7 @@ class API extends Server {
                   tip: '登录失败',
                   response: result
               }
-              return err;
+              throw err;
           }
       } catch (err) {
           throw err;
@@ -85,7 +85,7 @@ class API extends Server {
                 response: result,
                 url: '//elm.cangdu.org/v1/addimg/shop'
             }
-            return err;
+            throw err;
         }
       } catch (err) {
           throw err;
@@ -108,7 +108,7 @@ class API extends Server {
                   response: result,
                   url: "//elm.cangdu.org/v1/carts/addresses"
               }
-              return err;
+              throw err;
           }
       } catch(err) {
           throw err;
@@ -131,12 +131,100 @@ class API extends Server {
                 response: result,
                 url: '//elm.cangdu.org/v1/carts/addresses'
             }
-            return err;
+            throw err;
         }
       }catch(err) {
         throw err;
       }
   }
+  /**
+   *用途: 获取商店列表
+   * @param {*} data
+   * @memberof API
+   */
+  async getShopList(data) {
+      try {
+        let result = await this.axios('get', '/shopping/restaurants/'+getUrlConcat(data));
+        if(result) {
+            return result;
+        } else {
+            let err = {
+                tip: '获取商品列表失败',
+                response: result,
+                url: '//elm.cangdu.org/v1/carts/addresses'
+            }
+            throw err;
+        }
+      } catch(err) {
+          throw err;
+      }
+  }
+  /**
+   *用途: 猜测城市
+   * @param {*} keyword
+   * @memberof API
+   */
+  async cityGuess(keyword) {
+      try {
+        let result = await this.axios('get', '/v1/cities?type=guess');
+        if(result) {
+            return result;
+        } else {
+            let err = {
+                tip: '城市失败',
+                response: result,
+                url: '//elm.cangdu.org/v1/carts/addresses'
+            }
+            throw err;
+        }
+      } catch(err) {
+          throw err;
+      }
+  }
+  /**
+   * 用途: 根据经纬度获取地点信息
+   * @param {*} data
+   * @memberof API
+   */
+  async getPoisSite(data) {
+      try {
+        let result = await this.axios('get', '/v1/pois/' + data);
+        if(result) {
+            return result;
+        } else {
+            let err ={
+                tip: '获取地点失败',
+                response: result,
+                url: '//elm.cangdu.org/v1/carts/addresses'
+            }
+            throw err;
+        }
+      } catch(err) {
+          throw err;
+      }
+  }
+  /**
+   *用途: 获取食物种类
+   * @param {*} data
+   * @memberof API
+   */
+    async getFoodTypes(data) {
+        try {
+            let result = await this.axios('get', `/v2/index_entry/${getUrlConcat(data)}`);
+            if(result) {
+                return result;
+            } else {
+                let err = {
+                    tip: '获取食物种类失败',
+                    response: result,
+                    url: '//elm.cangdu.org/v1/carts/addresses'
+                }
+                throw err;
+            }
+        } catch(err) {
+            throw err;
+        }
+    }
 }
 
 export default new API();
