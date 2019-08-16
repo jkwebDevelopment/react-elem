@@ -188,7 +188,7 @@ class API extends Server {
    */
   async getPoisSite(data) {
       try {
-        let result = await this.axios('get', '/v1/pois/' + data);
+        let result = await this.axios('get', '/v2/pois/' + data);
         if(result) {
             return result;
         } else {

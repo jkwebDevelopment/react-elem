@@ -50,6 +50,8 @@ class Msite extends Component {
     // 根据经纬度获取地点信息
     async getPoisSite(geohash) {
         let res = await API.getPoisSite(geohash);
+        console.log("获取到信息");
+        console.log(res);
         this.setState({
             title: res.name
         })
@@ -64,7 +66,7 @@ class Msite extends Component {
         let resLength = res.length;
         let resArr = [...res];
         let foodArr = [];
-        for(let i = 0, j = 0; j < resLength; i +=8, j++) {
+        for(let i = 0, j = 0; i < resLength; i +=8, j++) {
             foodArr[j] = resArr.splice(0, 8);
         }
         this.setState({
